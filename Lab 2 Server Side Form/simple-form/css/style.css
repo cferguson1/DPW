@@ -1,0 +1,107 @@
+/* Template Rules ***********************************/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: #333;
+    color: #FFF;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 19px; 
+    font-size: 1.9rem;
+}
+
+.wrapper {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.inner-wrap {
+    width: 550px;
+    margin: 5rem auto;
+}
+
+h1 {
+    font-family: 'Audiowide', cursive;
+    font-size: 72px; 
+    font-size: 7.2rem;
+    margin: 2rem 0;
+    color: rgba(42, 42, 44, 0.8);
+    text-shadow: 1px 4px 6px #333333, 0 0 0 #000000, 1px 4px 6px #333333;
+}
+
+.row {
+    margin-bottom: 1rem;
+    display: inline-block;
+    width: 100%;
+}
+
+label, .label {
+    display: inline-block;
+    margin-right: 5%;
+    text-align: right;
+    width: 12%;
+    float: left;
+    line-height: 3.6rem;
+}
+
+.inputbox, .select {
+    background-color: #444444;
+    border: 1px solid #888888;
+    color: #FFF;
+    font-size: 1.9rem;
+    padding: 0.5rem;
+    float: left;
+    width: 83%;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.inputbox:focus {
+    background-color: #666666;
+}
+
+.radio-wrap {
+    line-height: 3.6rem;
+    display: inline-block;
+    margin-right: 6%;
+}
+
+.radio-wrap input {
+    margin: 0 0.5rem;
+    position: relative;
+    top: -5%;
+}
+
+.button {
+    background: rgb(40, 38, 38);
+    background: -moz-linear-gradient(90deg, rgb(40, 38, 38) 30%, rgb(28, 27, 27) 85%);
+    background: -webkit-linear-gradient(90deg, rgb(40, 38, 38) 30%, rgb(28, 27, 27) 85%);
+    background: -o-linear-gradient(90deg, rgb(40, 38, 38) 30%, rgb(28, 27, 27) 85%);
+    background: -ms-linear-gradient(90deg, rgb(40, 38, 38) 30%, rgb(28, 27, 27) 85%);
+    background: linear-gradient(180deg, rgb(40, 38, 38) 30%, rgb(28, 27, 27) 85%);
+    border-style: solid;
+    border-color: #404040;
+    border-width: 1px 0 0 1px;
+    border-radius: 3px;
+    color: #FFFFFF;
+    display: inline-block !important;
+    font-size: 2rem;
+    left: 7%;
+    margin: 1rem auto !important;
+    padding: 0.5rem;
+    position: relative;
+    width: 90%;
+}
+
+.button:hover {
+    cursor: pointer;
+}
