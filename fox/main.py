@@ -34,14 +34,9 @@ class Animal(AbstractAnimal):
     def __init__(self):
         #call Superclass::__init__
         super(Animal, self).__init__()
-        self.__figure_open = '''
-<figure>
-    <figcaption>
-        '''
-        self.__figure_close = '''
-    </figcaption>
-</figure>
-        '''
+        self.__inputs = []
+
+
 
 
 
