@@ -34,7 +34,44 @@ class Animal(AbstractAnimal):
     def __init__(self):
         #call Superclass::__init__
         super(Animal, self).__init__()
+        #setup a private place for the inputs
         self.__inputs = []
+        self._figure_inputs = ''
+
+
+    #get private var inputs
+    @property
+    def inputs(self):
+        pass
+
+    #set private var inputs
+    @inputs.setter
+    def inputs(self, arr):
+        #set it to the array we passed in
+        self.__inputs = arr
+        for item in arr:
+            self._figure_inputs += '''
+<figure>
+    <figcaption>
+            '''
+            self._figure_inputs += '<p><span class="label">Phylum: </span>' + item['phylum'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Class: </span>' + item['class'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Order: </span>' + item['order'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Family: </span>' + item['family'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Genus: </span>' + item['genus'] + '</p>'
+            self._figure_inputs += '<p><span class="label">URL: </span>' + item['imgurl'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Average Lifespan: </span>' + item['lifespan'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Habitat: </span>' + item['habitat'] + '</p>'
+            self._figure_inputs += '<p><span class="label">Geolocation: </span>' + item['geolocation'] + '</p>'
+            self._figure_inputs += '''
+    </figcatpion>
+</figure>
+            '''
+
+
+
+
+
 
 
 
