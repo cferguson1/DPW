@@ -3,7 +3,9 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        #create instance of Animal
+        a = Animal()
+        self.response.write(a.print_out())
 
 class AbstractAnimal(object):
     #initialize Object
@@ -17,7 +19,7 @@ class AbstractAnimal(object):
     </head>
     <body>
         '''
-        self.body = ""
+        self._body = "Hello World!"
         self._close = '''
     </body>
 </html>
@@ -25,7 +27,22 @@ class AbstractAnimal(object):
 
     #print content
     def print_out(self):
-        pass
+        return self._open + self._body + self._close
+
+
+class Animal(AbstractAnimal):
+    def __init__(self):
+        #call Superclass::__init__
+        super(Animal, self).__init__()
+        self.__figure_open = '''
+<figure>
+    <figcaption>
+        '''
+        self.__figure_close = '''
+    </figcaption>
+</figure>
+        '''
+
 
 
 app = webapp2.WSGIApplication([
