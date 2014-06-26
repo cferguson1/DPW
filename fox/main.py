@@ -17,7 +17,7 @@ class AbstractAnimal(object):
 <html>
     <head>
         <title>What does the fox say?</title>
-        <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
     </head>
     <body>
         '''
