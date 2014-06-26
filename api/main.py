@@ -9,18 +9,21 @@ class MainHandler(webapp2.RequestHandler):
         p.inputs = [ ['artist_name', 'text', 'Artist Name'],['song_name', 'text', 'Song Name'],['Submit', 'submit'] ]
         self.response.write(p.print_out())
 
-        #get API info
-        artist = self.request.GET['artist_name']
-        song = self.request.GET['song']
-        url = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?artist="+artist+"&song="+song+"
-        request = urllib2.Request(url)
-        opener = urllib2.build_opener()
-        #use url to get a result
-        result = opener.open(request)
+        if self.request.GET:
+            #get API info
+            artist = self.request.GET['artist_name']
+            song = self.request.GET['song_name']
+            url = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?artist="+artist+"&song="+song
+            request = urllib2.Request(url)
+            opener = urllib2.build_opener()
+            #use url to get a result
+            result = opener.open(request)
 
-        #prase XML
-        xmldoc = minidom.parse(result)
-        self.response.write(xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue)
+            #parse XML
+            xmldoc = minidom.parse(result)
+            self.response.write(xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue)
+            self.response.write(xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue)
+
 
 class Page(object): #borrowing stuff from the object class
     def __init__(self):
