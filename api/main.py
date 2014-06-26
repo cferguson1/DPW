@@ -21,9 +21,20 @@ class MainHandler(webapp2.RequestHandler):
 
             #parse XML
             xmldoc = minidom.parse(result)
-            self.response.write(xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue)
-            self.response.write(xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue)
+            self._dos = []
+            do = LyricData()
+            do.artistName = xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue
+            do.lyrics = xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue
 
+            self._dos.append(do)
+
+            print self._dos
+
+class LyricData(object):
+    ''' hold data fetched by model and shown by view '''
+    def __init__(self):
+        self.artistName = ''
+        self.lyrics = ''
 
 class Page(object): #borrowing stuff from the object class
     def __init__(self):
@@ -69,8 +80,6 @@ class FormPage(Page):
             #otherwise end the tag
             except:
                 self._form_inputs += '" />'
-
-        print self._form_inputs
 
     def print_out(self):
         return self._head + self._body + self._form_open + self._form_inputs + self._form_close + self._close
