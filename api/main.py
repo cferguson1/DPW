@@ -30,8 +30,8 @@ class LyricView(object):
 
     def update(self):
         for do in self.__ldos:
-            self.__content += do.artistName
-            self.__content += do.lyrics
+            self.__content += "<h2>" + do.artistName + "</h2>"
+            self.__content += "<p>" + do.lyrics + "</p>"
 
 
     @property
@@ -103,11 +103,14 @@ class Page(object): #borrowing stuff from the object class
 <html>
     <head>
         <title></title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
-    <body>'''
+    <body>
+        <div class="wrapper">'''
 
         self._body = 'Lyrics App'
         self._close = '''
+        </div>
     </body>
 </html>'''
 
@@ -142,7 +145,7 @@ class FormPage(Page):
                 self._form_inputs += '" />'
 
     def print_out(self):
-        return self._head + self._form_open + "<h1>Lyric App</h1>" + self._form_inputs + self._form_close + self._body + self._close
+        return self._head + "<h1>Lyric App</h1>" + self._form_open + self._form_inputs + self._form_close + self._body + self._close
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
