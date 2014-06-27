@@ -11,24 +11,50 @@ class MainHandler(webapp2.RequestHandler):
 
         if self.request.GET:
             #get API info
-            artist = self.request.GET['artist_name']
-            song = self.request.GET['song_name']
-            url = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?artist="+artist+"&song="+song
-            request = urllib2.Request(url)
-            opener = urllib2.build_opener()
-            #use url to get a result
-            result = opener.open(request)
+            lm = LyricModel()
+            lm.artist = self.request.GET['artist_name']
+            lm.song = self.request.GET['song_name']
+            lm.callApi()
 
-            #parse XML
-            xmldoc = minidom.parse(result)
-            self._dos = []
-            do = LyricData()
-            do.artistName = xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue
-            do.lyrics = xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue
+class LyricModel(object):
+    ''' Model handles processing api data '''
+    def __init__(self):
+        self.__url = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?artist="
+        self.__url2 = "&song="
+        self.__artist = ''
+        self.__song = ''
+        self.__xmldoc = ''
 
-            self._dos.append(do)
+    def callApi(self):
+        request = urllib2.Request(self.__url + self.__artist + self.__url2 + self.__song)
+        opener = urllib2.build_opener()
+        #use url to get a result
+        result = opener.open(request)
 
-            print self._dos
+        #parse XML
+        self.__xmldoc = minidom.parse(result)
+        self._dos = []
+        do = LyricData()
+        do.artistName = xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue
+        do.lyrics = xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue
+        self._dos.append(do)
+
+
+    @property
+    def artist(self):
+        pass
+
+    @artist.setter
+    def artist(self, a):
+        self.__artist = a
+
+    @property
+    def song(self):
+        pass
+
+    @song.setter
+    def song(self, s):
+        self.__artist = s
 
 class LyricData(object):
     ''' hold data fetched by model and shown by view '''
