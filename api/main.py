@@ -6,7 +6,7 @@ from xml.dom import minidom
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         p = FormPage()
-        p.inputs = [ ['artist_name', 'text', 'Artist Name'],['song_name', 'text', 'Song Name'],['Submit', 'submit'] ]
+        p.inputs = [ ['artist_name', 'text', 'Cher'],['song_name', 'text', 'Believe'],['Submit', 'submit'] ]
 
         if self.request.GET:
             #get API info
@@ -31,7 +31,8 @@ class LyricView(object):
     def update(self):
         for do in self.__ldos:
             self.__content += "<h2>" + do.artistName + "</h2>"
-            self.__content += "<p>" + do.lyrics + "</p>"
+            self.__content += "<pre>" + do.lyrics + "</pre>"
+            self.__content += '<img src="'+do.art+'" alt="cover art"/>'
 
 
     @property
@@ -68,6 +69,7 @@ class LyricModel(object):
         do = LyricData()
         do.artistName = self.__xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue
         do.lyrics = self.__xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue
+        do.art = self.__xmldoc.getElementsByTagName('LyricCovertArtUrl')[0].firstChild.nodeValue
         self._dos.append(do)
 
     @property
