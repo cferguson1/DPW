@@ -7,14 +7,45 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         p = FormPage()
         p.inputs = [ ['artist_name', 'text', 'Artist Name'],['song_name', 'text', 'Song Name'],['Submit', 'submit'] ]
-        self.response.write(p.print_out())
 
         if self.request.GET:
             #get API info
-            lm = LyricModel()
+            lm = LyricModel() #creates model
             lm.artist = self.request.GET['artist_name']
             lm.song = self.request.GET['song_name']
             lm.callApi()
+
+            lv = LyricView() #creates view
+            lv.ldos = lm.dos #puts do's from model into view
+            p._body = lv.content
+
+        self.response.write(p.print_out())
+
+
+class LyricView(object):
+    ''' Class handles how data is displayed '''
+    def __init__(self):
+        self.__ldos = []
+        self.__content = ''
+
+    def update(self):
+        for do in self.__ldos:
+            self.__content += do.artistName
+            self.__content += do.lyrics
+
+
+    @property
+    def content(self):
+        return self.__content
+
+    @property
+    def ldos(self):
+        pass
+
+    @ldos.setter
+    def ldos(self, arr):
+        self.__ldos = arr
+        self.update()
 
 class LyricModel(object):
     ''' Model handles processing api data '''
@@ -35,10 +66,13 @@ class LyricModel(object):
         self.__xmldoc = minidom.parse(result)
         self._dos = []
         do = LyricData()
-        do.artistName = xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue
-        do.lyrics = xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue
+        do.artistName = self.__xmldoc.getElementsByTagName('LyricArtist')[0].firstChild.nodeValue
+        do.lyrics = self.__xmldoc.getElementsByTagName('Lyric')[0].firstChild.nodeValue
         self._dos.append(do)
 
+    @property
+    def dos(self):
+        return self._dos
 
     @property
     def artist(self):
@@ -54,7 +88,7 @@ class LyricModel(object):
 
     @song.setter
     def song(self, s):
-        self.__artist = s
+        self.__song = s
 
 class LyricData(object):
     ''' hold data fetched by model and shown by view '''
@@ -108,7 +142,7 @@ class FormPage(Page):
                 self._form_inputs += '" />'
 
     def print_out(self):
-        return self._head + self._body + self._form_open + self._form_inputs + self._form_close + self._close
+        return self._head + self._form_open + "<h1>Lyric App</h1>" + self._form_inputs + self._form_close + self._body + self._close
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
